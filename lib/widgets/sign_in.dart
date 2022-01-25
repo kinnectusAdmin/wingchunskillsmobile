@@ -77,7 +77,7 @@ class _SignInState extends State<SignIn> {
                                       padding: EdgeInsets.only(top: 12), 
                                       child: Row(children: [Spacer(),Expanded(child: textButton('Forgot Password?', Colors.white, () => routeToForgotPassword(context))),],)
                                       ,),
-                                    LongButton('Sign In', Colors.grey[800], _didSelectSubmit,)
+                                    LongButton('Sign In', Colors.grey[800], () => _didSelectSubmit(context))
                                   ],
                       )
               )

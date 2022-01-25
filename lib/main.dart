@@ -18,7 +18,7 @@ class AppState extends State<App> {
   // This widget is the root of your application.
   Widget launch() {
     return MaterialApp(
-      title: 'Expesenses App',
+      title: 'Wing Chun Skills',
       home: Launch(),
     );
   

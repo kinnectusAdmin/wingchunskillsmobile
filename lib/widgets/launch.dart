@@ -9,8 +9,6 @@ import './long_button.dart';
 
 class Launch extends StatelessWidget {
 
-  void didSelectSignIn(BuildContext context) => routeToSignIn(context);
-  
   void autoLoginAttempt(BuildContext context) async {
     try {
       final isLoggedIn = await hasCurrentUser();
@@ -34,10 +32,10 @@ class Launch extends StatelessWidget {
                   Image.asset('assets/images/landingPageImage.jpg', width: screenWidth(context), height: screenHeight(context), fit: BoxFit.fill),
                   Container(color: Colors.grey[800]?.withOpacity(0.9), width: screenWidth(context), height: screenHeight(context)),
                   Column(
-                  children: [
-                    Padding(padding: EdgeInsets.only(top: 100), child: Logo()),
-                    Padding(padding: EdgeInsets.all(20), child: LongButton('Sign In', Colors.grey[800], didSelectSignIn))
-                    ]
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 100), child: Center(child: Logo())),
+                      Padding(padding: EdgeInsets.all(20), child: LongButton('Sign In', Colors.grey[800], () => routeToSignIn(context)))
+                      ]
                 ,)
               ],)
           ), // This trailing comma makes auto-formatting nicer for build methods.

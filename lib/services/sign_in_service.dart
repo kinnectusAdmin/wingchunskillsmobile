@@ -1,5 +1,4 @@
 import 'package:wingchunskills/models/experience_level.dart';
-
 import '../models/sign_in_info.dart';
 import '../models/user.dart';
 import '../services/local_database.dart';
@@ -8,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../utils/functions.dart';
 import '../models/user_auth_result.dart';
-
+import 'web_request.dart';
 class SignInResult {
   User? user;
   String? error;
@@ -30,7 +29,7 @@ Future<SignInResult> signInUser(SignInInfo? info) async {
     };
     print(body);
     try {
-      var url = Uri.parse('https://wingchunskills.herokuapp.com/api/login');
+      var url = WebRequest.login().url();
       var response = await http.post(url, headers: headers, body: jsonEncode(body));
       print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201){

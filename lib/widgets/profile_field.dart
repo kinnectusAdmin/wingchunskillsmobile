@@ -19,8 +19,8 @@ class ProfileField extends StatelessWidget {
       validator: _validation, 
       onFieldSubmitted: _onSubmitted, 
       autocorrect: false,
-      cursorColor: Colors.black12, 
-      style: TextStyle(color: Colors.white),
+      cursorColor: Colors.grey[200], 
+      style: TextStyle(color: Colors.grey[200]),
     );
   }
 }

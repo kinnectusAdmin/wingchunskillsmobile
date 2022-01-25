@@ -21,6 +21,6 @@ class DeleteAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return 
-    LongButton('Log Out', Colors.grey[800], () => _onSelect(context));
+    LongButton('Delete Account', Colors.grey[800], () => _onSelect(context));
   }
 }

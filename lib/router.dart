@@ -40,8 +40,8 @@ void routeToDiscussion(Lesson lesson, BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (builder) => CourseLesson(lesson)));
 }
 
-void routeToAddComment(String title, BuildContext context) {
-      Navigator.push(context, MaterialPageRoute(builder: (builder) => AddComment(title)));
+void routeToAddComment(Lesson lesson, BuildContext context) {
+      Navigator.push(context, MaterialPageRoute(builder: (builder) => AddComment(lesson)));
 }
 void routeToProfile(BuildContext context) {
       Navigator.push(context, MaterialPageRoute(builder: (builder) => Profile()));

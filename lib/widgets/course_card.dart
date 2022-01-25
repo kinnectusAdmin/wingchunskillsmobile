@@ -13,7 +13,7 @@ class CourseCard extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shadowColor: Colors.black,
       elevation: 5, 
-      child: Image.asset(imageURL)
+      child: Image.network(imageURL)
     );
   }
   Widget title(String courseTitle) {

@@ -9,9 +9,8 @@ import '../models/lesson.dart';
 import '../widgets/lesson_video_player.dart';
 import '../utils/functions.dart';
 import '../widgets/video_controls.dart';
-import '../widgets/comments.dart';
 import '../router.dart';
-
+import './comments.dart';
 class CourseLesson extends StatefulWidget {
   final Lesson _lesson;
 
@@ -26,7 +25,6 @@ class CourseLessonState extends State<CourseLesson> {
   late VideoPlayerController _controller = VideoPlayerController.network('');
   late Future<void> _initializeVideoPlayerFuture;
   Widget video = const Text('Loading...');
-
   @override
   void initState() {
     setUp();
@@ -34,11 +32,11 @@ class CourseLessonState extends State<CourseLesson> {
   }
   void reset() {
     _controller.seekTo(Duration.zero);
-    video = Image.asset(widget._lesson.imageURL, fit: BoxFit.fill);
+    video = Image.network(widget._lesson.imageURL, fit: BoxFit.fill);
     _controller.pause();
   }
   void setUp() async {
-    video = Image.asset(widget._lesson.imageURL, fit: BoxFit.fill);
+    video = Image.network(widget._lesson.imageURL, fit: BoxFit.fill);
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
@@ -58,7 +56,7 @@ class CourseLessonState extends State<CourseLesson> {
         _controller.pause();
       } else {
         video = Player.video(_initializeVideoPlayerFuture, _controller);
-      _controller.play();
+        _controller.play();
       }
     });
   }
@@ -68,10 +66,6 @@ class CourseLessonState extends State<CourseLesson> {
     });
   }
   
-  void _didPressExit(BuildContext context) {
-    Navigator.pop(context);
-  }
-
   Widget player(BuildContext context) {
     return
       Stack(    
@@ -79,44 +73,48 @@ class CourseLessonState extends State<CourseLesson> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: isPortrait(context) ? 300 : MediaQuery.of(context).size.height,
+            height: isPortrait(context) ? MediaQuery.of(context).size.width * (9/16) : MediaQuery.of(context).size.height,
             child: video
           ), 
-          VideoControls(_controller, _didPressPlay, _didPressStop, () => _didPressExit(context))
+          VideoControls(_controller, _didPressPlay, _didPressStop)
           ],
       );
   }
 
   void _didSelectComment (BuildContext context) {
-    routeToAddComment(widget._lesson.title, context);
+    routeToAddComment(widget._lesson, context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        floatingActionButton: FloatingActionButton(backgroundColor: Colors.grey[200], child: Icon(Icons.chat_rounded, color: Colors.black87), onPressed: () => _didSelectComment(context)),
-        appBar: simpleAppBarWithReturn(widget._lesson.title, context, Colors.black.withOpacity(0.9)),
-        body: OrientationBuilder(
-              builder: (context, orientation){
-                switch(orientation){
-                case Orientation.portrait:
-                  return
-                    Container(
-                      decoration: darkRadialGradient(),
-                      child: Column(
-                        children: [
-                          Container(height: 300, color: primaryColor()),
-                          // player(context),
-                          Comments(widget._lesson)
-                        ]
-                      ),
-                    );
-                case Orientation.landscape:
-                  return Container(color: primaryColor());//player(context);
-                }
-            }),
-      ),
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return MaterialApp(
+          home: Scaffold(
+            floatingActionButton: FloatingActionButton(backgroundColor: Colors.grey[200], child: Icon(Icons.chat_rounded, color: Colors.black87), onPressed: () => _didSelectComment(context)),
+            appBar: orientation == Orientation.landscape ? null : simpleAppBarWithReturn(widget._lesson.title, context, Colors.black.withOpacity(0.9)),
+            body: OrientationBuilder(
+                  builder: (context, orientation){
+                    switch(orientation){
+                    case Orientation.portrait:
+                      return
+                        Container(
+                          decoration: darkRadialGradient(),
+                          child: Column(
+                            children: [
+                              player(context),
+                              Padding(padding: EdgeInsets.only(top: 10, left: 10, right: 10), child: Text(widget._lesson.description, style: TextStyle(color: Colors.grey[200]))),
+                              Expanded(child: Comments(widget._lesson))
+                            ]
+                          ),
+                        );
+                    case Orientation.landscape:
+                      return player(context);
+                    }
+                }),
+          ),
+        );
+      }
     );
   }
 }

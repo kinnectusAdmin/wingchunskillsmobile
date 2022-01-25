@@ -148,7 +148,7 @@ import '../utils/functions.dart';
       var dob = user.dob;
       var dobText = dob != null ? dob.toString() : '';
       await prefs.setInt(LocalDatabaseKeys.currentUserFirstName, user.id);
-      await prefs.setString(LocalDatabaseKeys.currentUserFirstName,user.firstName); 
+      await prefs.setString(LocalDatabaseKeys.currentUserFirstName, user.firstName); 
       await prefs.setString(LocalDatabaseKeys.currentUserLastName, user.lastName);
       await prefs.setString(LocalDatabaseKeys.currentUserEmail, user.email);
       await prefs.setString(LocalDatabaseKeys.currentUserImageURL, user.imageURL);

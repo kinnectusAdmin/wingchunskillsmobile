@@ -54,7 +54,7 @@ class CoursesState extends State<Courses> {
               );
 
             } else {
-                return Center(child: Text('Loading Courses'));
+              return Center(child: Text('Loading Courses'));
             }
           }
         )

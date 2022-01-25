@@ -11,7 +11,7 @@ class LongButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
     ElevatedButton(
-      onPressed: () => _onPress(context),
+      onPressed: () => _onPress(),
       child: Text(_title),
       style: ElevatedButton.styleFrom(primary: _color)
     );

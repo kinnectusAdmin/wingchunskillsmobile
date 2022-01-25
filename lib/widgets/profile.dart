@@ -82,8 +82,11 @@ class ProfileState extends State<Profile> {
     }
   }
   void _didSelectDate(DateTime date) {
-        currentUser.dob = date;
-        updateHandler('dob', date.toIso8601String());
+    print(date);
+    setState(() {
+      currentUser.dob = date;
+    }); 
+    updateHandler('dob', date.toIso8601String());
   }
   
   @override

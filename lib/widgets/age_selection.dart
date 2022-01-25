@@ -17,7 +17,7 @@ class AgeSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     if(_age != null){
       var number = ageFromDate(_age!);
-      print(_age);
+      print('age: $_age');
       print(number);
       var presentation = number > 0 ? '$number years old' : 'Select your Birthday';
       return 

@@ -8,7 +8,6 @@ import '../utils/functions.dart';
 class Comments extends StatefulWidget {
 
   Lesson _lesson;
-
   Comments(this._lesson); 
 
   @override
@@ -32,20 +31,17 @@ class CommentsState extends State<Comments> {
 
   @override
   Widget build(BuildContext context) {
-   
     return
     FutureBuilder(
       future: initializeCommentsFuture, 
       builder: (context, snapshot) {
         if (snapshot.hasData){
           return 
-          Container(height: screenHeight(context) - 300 - kToolbarHeight - AppBar().preferredSize.height, 
-                    child: ListView(
-                            children: commentsList(snapshot.data as List<Comment>)
-                          )
-          );
+              ListView(
+                children: commentsList(snapshot.data as List<Comment>)
+              );
         } else {
-          return const Spacer();
+          return const Text('no comments');
         }
       }
     );
